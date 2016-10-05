@@ -121,11 +121,18 @@ install <-
     on.exit(unlink(built_path), add = TRUE)
   }
 
-  opts <- c(
-    paste("--library=", shQuote(.libPaths()[1]), sep = ""),
+  # If the lib location is supplied in the dots, don't overwrite but it be passed on to install
+  dots <- list(...)
+  if(!"library" %in% names(dots)){
+    opts <- paste("--library=", shQuote(.libPaths()[1]), sep = "")
+  } else {
+    opts <- paste("--library=", shQuote(dots$lib), sep = "")
+   }
+    
+  opts <- c(opts,
     if (keep_source) "--with-keep.source",
-    "--install-tests"
-  )
+    "--install-tests")
+      
   if (quick) {
     opts <- c(opts, "--no-docs", "--no-multiarch", "--no-demo")
   }
