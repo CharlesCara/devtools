@@ -126,7 +126,7 @@ install <-
   if(!"library" %in% names(dots)){
     opts <- paste("--library=", shQuote(.libPaths()[1]), sep = "")
   } else {
-    opts <- paste("--library=", shQuote(dots$lib), sep = "")
+    opts <- paste("--library=", shQuote(dots$library), sep = "")
    }
     
   opts <- c(opts,
